@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project planner</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- nav -->
+    <nav class="nav">
+      <div class="button project-button" role="button">Project</div>
+      <a href="#" class="button button-login">Login</a>
+    </nav>
+
+    <header class="header" id="header">
+      <!-- main progress bar -->
+      <div class="progress-bar main-bar" id="main-bar"></div>
+      <!-- service bar -->
+      <ul class="service-bar">
+        <li class="service-bar-child">
+          Time required: <span id="time-required"></span>
+        </li>
+        <li class="service-bar-child">ETA: <span id="planned-date"></span></li>
+      </ul>
+    </header>
+
+    <!-- add task form -->
+    <form
+      name="newTask"
+      action=""
+      method="dialog"
+      class="add-task-form"
+      id="main-add-task"
+    >
+      <input
+        type="text"
+        id="task"
+        name="taskName"
+        placeholder="Task description"
+        required
+      />
+      <input
+        type="number"
+        id="time"
+        name="timeRequired"
+        placeholder="Time"
+        required
+      />
+      <select id="time-type" name="timeType">
+        <option value="mins">Mins</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+        <option value="weeks">Weeks</option>
+      </select>
+      <div class="button add-button" id="add-button">
+        <span class="material-icons"> add </span>
+      </div>
+      <input
+        class="button button-reload"
+        type="submit"
+        value="Reload values"
+        form="add-task"
+        onclick="reloadTasks()"
+      />
+    </form>
+    <p class="validate-message" id="validate-message"></p>
+    <!-- Tasks list -->
+    <div class="tasks-list-container" id="tasks-list-container"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

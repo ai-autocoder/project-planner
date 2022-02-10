@@ -1,0 +1,408 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+// Variables
+$font-size-global: clamp(
+  1.1rem,
+  calc(1.1rem + ((1vw - 0.265625rem) * 0.3153)),
+  1.3rem
+);
+$font-size-input: clamp(
+  1rem,
+  calc(1rem + ((1vw - 0.265625rem) * 0.1576)),
+  1.1rem
+);
+
+$accent-1: #3673ce;
+$accent-3: #3385ff;
+$accent-4: #535353;
+$accent-5: #696969;
+$accent-5-transparence: rgba(105, 105, 105, 0.95);
+$accent-6: #dddddd;
+$accent-6-transparence: hsla(0, 0%, 100%, 0.4);
+
+// Material shadows
+$shadow-z1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+$shadow-z2: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+$shadow-z4: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+  0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+$shadow-z8: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+$shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
+  rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
+
+:root {
+  --task-complete: hsl(126, 80%, 61%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 0.8rem;
+  cursor: pointer;
+  border-radius: 2px;
+  box-shadow: $shadow-z1;
+  &:hover {
+    background-color: $accent-6;
+    box-shadow: $shadow-z4;
+  }
+}
+.project-button {
+  margin: auto;
+  max-width: min(250px, 30vw);
+  min-width: 100px;
+  font-size: 1.1em;
+  font-weight: 500;
+  // line-height: 1.15;
+  text-align: center;
+  background: $accent-1;
+  color: white;
+  &:hover {
+    background: $accent-3;
+  }
+}
+.checkbox-done {
+  background: lightgray;
+  position: relative;
+  padding: 1.3em;
+  // width: 1.5em;
+  // height: 1.5em;
+  color: black;
+  appearance: none;
+  outline: 0;
+  &:hover {
+    background: hsla(126, 80%, 61%, 0.582);
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    display: block;
+    top: 45%;
+    left: 50%;
+    width: 0.6em;
+    height: 1.3em;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+    opacity: 0;
+  }
+  &:checked {
+    color: white;
+    border-color: green;
+    background: green;
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.edit-task {
+  padding: 0.2em 0.4em;
+  color: $accent-4;
+  background: lightgray;
+}
+
+.button-remove {
+  color: $accent-4;
+  background: lightgray;
+  padding: 0.2em 0.4em;
+}
+
+body {
+  font-family: "Roboto", sans-serif !important;
+  font-size: $font-size-global;
+  min-height: 0vw; // safari responsive font fix
+  // padding: 0.4rem;
+  margin: auto;
+  max-width: 1440px;
+  min-width: 320px;
+  background: $accent-5;
+}
+
+.nav {
+  font-size: 1.2rem;
+  width: 100%;
+  position: relative;
+
+  .button-login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1rem;
+    padding: 0.5em;
+    // width: min-content;
+    // padding: 0.7em;
+    color: $accent-5;
+    background: lightgray;
+    text-align: center;
+    text-decoration: none;
+    &:hover {
+      background: $accent-6;
+    }
+  }
+}
+.header {
+  z-index: 2;
+  background: $accent-5-transparence;
+  border-bottom: 1px black solid;
+  font-size: 1.1rem;
+}
+.progress-bar {
+  margin: 0.5rem 1rem;
+  height: 3rem;
+  color: white;
+  background-color: rgb(177, 177, 177);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: $shadow-z8;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    width: calc(var(--main-pbar-width) * 1%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $accent-1;
+    height: 100%;
+    // transition: width 0.5s linear;
+    transition: width 0.4s cubic-bezier(0, 0.06, 0.4, 1.26);
+  }
+  &::after {
+    content: var(--main-progress);
+    font-size: 1.2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1440px;
+  box-shadow: $shadow-z18;
+  transition: 0.6s;
+  border: none;
+}
+.sticky-margin {
+  margin-top: 130px;
+}
+.service-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  list-style: none;
+  padding: 1em;
+  margin: 0;
+  color: $accent-6;
+  li {
+    padding: 0.3em;
+  }
+}
+
+.add-task-form {
+  display: flex;
+  font-size: $font-size-input;
+  padding: 1rem;
+  gap: 0.3em;
+  input {
+    border-radius: 2px;
+    border: none;
+    padding: 1em 0.5em;
+    background: $accent-6;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-size-input;
+    color: $accent-5;
+    &[type="text"] {
+      flex: 4 1 50%;
+    }
+    &[type="number"] {
+      width: 15%;
+      flex: 1 1 10%;
+    }
+  }
+
+  select {
+    flex: 1 1 10%;
+    border: none;
+    border-radius: 2px;
+    color: $accent-5;
+    padding: 0;
+    text-align: center;
+    background: $accent-6;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-size-input;
+    option {
+      color: $accent-5;
+      font-size: 1.2rem;
+    }
+  }
+
+  .add-button {
+    flex: 0 0 0;
+    color: white;
+    background-color: $accent-1;
+    &:hover {
+      background: $accent-3;
+    }
+  }
+
+  .button-reload {
+    background: lightgrey;
+    margin-left: auto;
+    &:hover {
+      background: $accent-6;
+    }
+  }
+}
+.sub-form {
+  input {
+    background: $accent-6-transparence;
+  }
+  input[type="text"] {
+    flex-grow: 1;
+  }
+  select {
+    background: $accent-6-transparence;
+    option {
+      color: $accent-5;
+      background: $accent-6;
+    }
+  }
+}
+.validate-message {
+  color: red;
+  margin: 0;
+  text-align: center;
+}
+
+.tasks-list-container {
+  background-color: $accent-5;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.task-list-child {
+  background: $accent-6;
+  box-shadow: $shadow-z2;
+  padding: 1em;
+  border-radius: 2px;
+  position: relative;
+  .task {
+    display: grid;
+    grid-template-columns: 10% auto 10% 10% 10%;
+    align-items: center;
+    justify-items: center;
+    padding: 0.5em 1em;
+    gap: 0.5rem;
+    border-radius: 2px;
+    .task-name {
+      max-width: 50ch;
+      color: $accent-4;
+      line-height: 1.4em;
+      padding: 0.5rem;
+      margin: 0;
+    }
+    .task-time {
+      color: $accent-5;
+    }
+  }
+  .sub-tasks-container {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: $shadow-z4;
+    flex-direction: column;
+    margin: 0 0 0 5rem;
+
+    & > * {
+      padding: 0.5rem;
+    }
+
+    .add-sub-task {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+      border-radius: 2px;
+
+      .add-sub-btn {
+        color: white;
+        background-color: $accent-1;
+        margin-left: 1rem;
+      }
+    }
+
+    .sub-task {
+      background: $accent-6;
+      margin: 0 0.5rem 0.5rem 0.5rem;
+      box-shadow: $shadow-z2;
+      &:hover {
+        box-shadow: $shadow-z4;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .add-task-form {
+    flex-wrap: wrap;
+    input {
+      &[type="text"] {
+        flex: 1 1 100%;
+      }
+      &[type="number"] {
+        flex: 1 1 110px;
+      }
+    }
+    select {
+      flex: 1 1 110px;
+    }
+  }
+  .task-list-child {
+    padding: 0.5em;
+    .task {
+      grid-template-columns: 10% auto 10%;
+      .task-name {
+        grid-column: span 2;
+      }
+    }
+    .sub-tasks-container {
+      margin-left: 1rem;
+    }
+  }
+}
+@media only screen and (max-width: 425px) {
+  .service-bar {
+    flex-direction: column;
+    padding: 0.1rem;
+    align-items: center;
+  }
+  .task-list-child {
+    .task {
+      grid-template-columns: 15% auto 15%;
+      .task-name {
+        grid-column: span 3;
+      }
+      .task-time {
+        grid-column: span 2;
+      }
+      .button-remove {
+        grid-row-start: 1;
+        grid-column-start: 3;
+      }
+    }
+    .sub-tasks-container {
+      margin-left: 1rem;
+    }
+  }
+}
