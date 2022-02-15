@@ -31,17 +31,13 @@ function validate(title, time) {
   loops++;
   const pElement = document.getElementById("validate-message");
   if (!title) {
-    const adesso = new Date();
-    let ora = adesso.getSeconds();
-    pElement.innerHTML =
-      "Invalid description before return " + ora + title + loops;
+    pElement.innerHTML = "Invalid description";
     return false;
   }
   if (time <= 0 || isNaN(time) || time == "") {
     pElement.innerHTML = "Time must be a number greater than 0";
     return false;
   }
-  console.log("returning true" + loops);
   pElement.innerHTML = "";
   return true;
 }
