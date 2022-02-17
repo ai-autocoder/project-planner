@@ -10,13 +10,15 @@ updateUI();
     addTask();
   });
 })();
-(function stickyProgressBar() {
-  window.addEventListener("scroll", () => {
-    const progressBar = document.getElementById("header");
-    progressBar.classList.toggle("sticky", window.scrollY > 50);
-    const addTaskForm = document.getElementById("main-add-task");
-    addTaskForm.classList.toggle("sticky-margin", window.scrollY > 50);
-  });
+(function headerShadow() {
+  const header = document.getElementById("header");
+  window.addEventListener(
+    "scroll",
+    () => {
+      header.classList.toggle("elevated", window.scrollY > 50);
+    },
+    { capture: false, passive: true }
+  );
 })();
 
 function Task(name, time, timeType) {
@@ -106,13 +108,12 @@ function getTimeString(time) {
 function getHtmlTask() {
   return tasks
     .map((task, index) => {
-      const checked = task.complete ? "checked" : "";
       const expanded = tasks[index].expand ? "display:flex" : "display:none";
       const timeString = getTimeString(task.time);
       let mainTaskHtml = `
     <div class="task-list-child" id="task-list-child-${index}">
       <div class="task" id="main-task-${index}">
-        <input type="checkbox" class="checkbox-done button" id="bd-${index}" ${checked}>
+        <input type="checkbox" class="checkbox-done button" id="bd-${index}">
         <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}">${task.name}</div>
         <div class="button edit-task" id="edit-task-${index}"><span class="material-icons">
         edit
@@ -144,11 +145,10 @@ function getHtmlTask() {
       if (hasSubTasks(task)) {
         const subTasksHtml = task.subTasks
           .map((subTask, subIndex) => {
-            let subChecked = subTask.complete ? "checked" : "";
             const subTimeString = getTimeString(subTask.time);
             return `
-            <div class="task sub-task" id="sub-task-${subIndex}">
-              <input type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}" ${subChecked}>
+            <div class="task sub-task" id="sub-task-${index}-${subIndex}">
+              <input type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}">
               <div class="task-name">${subTask.name}</div>
               <div class="button edit-task" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
               edit</span></div>
@@ -171,43 +171,49 @@ function getHtmlTask() {
 function updateUI() {
   updateTasksArray();
   const container = document.getElementById("tasks-list-container");
-  container.innerHTML = "";
+
   container.innerHTML = getHtmlTask();
   changeStyles();
   setProgress(); //sets main progress changes
   addListeners();
 }
 
-function changeStyles() {
-  tasks.forEach((task, index) => {
-    if (task.complete) {
-      const div = document.getElementById(`task-list-child-${index}`);
-      div.style.background = "var(--task-complete)";
-      div.style.boxShadow = "none";
-
-      const editButton = document.getElementById(`edit-task-${index}`);
-      editButton.style.background = "var(--task-complete)";
-      const removeButton = document.getElementById(`remove-task-${index}`);
-      removeButton.style.background = "var(--task-complete)";
+function changeStyles(taskIndex = null) {
+  if (taskIndex == null)
+    tasks.forEach((_, taskIndex) => {
+      changeStyles(taskIndex);
+    });
+  else {
+    const div = document.getElementById(`task-list-child-${taskIndex}`);
+    const hasStyle = div.classList.contains("task-complete");
+    const checkBox = document.getElementById(`bd-${taskIndex}`);
+    if (tasks[taskIndex].complete) {
+      checkBox.checked = true;
+      if (!hasStyle) div.classList.add("task-complete");
+    } else if (!tasks[taskIndex].complete) {
+      checkBox.checked = false;
+      if (hasStyle) div.classList.remove("task-complete");
     }
-    if (hasSubTasks(task)) {
-      task.subTasks.forEach((subTask, subIndex) => {
+
+    if (hasSubTasks(tasks[taskIndex])) {
+      tasks[taskIndex].subTasks.forEach((subTask, subIndex) => {
+        const divSub = document.getElementById(
+          `sub-task-${taskIndex}-${subIndex}`
+        );
+
+        const hasStyle = divSub.classList.contains("task-complete");
+        const checkBox = document.getElementById(`bd-${taskIndex}-${subIndex}`);
+
         if (subTask.complete) {
-          const divSub = document.getElementById(`sub-task-${subIndex}`);
-          divSub.style.background = "var(--task-complete)";
-          divSub.style.boxShadow = "none";
-          const editSubButton = document.getElementById(
-            `edit-sub-task-${index}-${subIndex}`
-          );
-          editSubButton.style.background = "var(--task-complete)";
-          const removeSubButton = document.getElementById(
-            `remove-sub-task-${index}-${subIndex}`
-          );
-          removeSubButton.style.background = "var(--task-complete)";
+          checkBox.checked = true;
+          if (!hasStyle) divSub.classList.add("task-complete");
+        } else if (!subTask.complete) {
+          checkBox.checked = false;
+          if (hasStyle) divSub.classList.remove("task-complete");
         }
       });
     }
-  });
+  }
 }
 function addListeners() {
   // document.addEventListener("click", (e) => {
@@ -407,9 +413,7 @@ function hasSubTasks(task) {
 
 function calcProgress() {
   // tasks.reduce();
-  let totalTime = 0,
-    timeDone = 0,
-    progress = 0;
+  let totalTime, timeDone, progress;
   tasks.forEach((task, index) => {
     if (hasSubTasks(task)) {
       let taskTime = 0,
@@ -445,7 +449,6 @@ function calcProgress() {
 }
 function setTaskBackground(index, taskProgress) {
   let shadowZ2 = `0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)`;
-  // 2 ways: set background shadow, set a div inside and change width
   const taskDiv = document.getElementById(`task-list-child-${index}`);
   let width = parseInt((taskDiv.offsetWidth * taskProgress) / 100);
   taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0px hsl(126, 80%, 61%), ${shadowZ2}`;
@@ -454,7 +457,7 @@ function setTaskBackground(index, taskProgress) {
 function taskDone(index, subIndex = null) {
   let mainTask = tasks[index];
   let taskClicked;
-  if (subIndex != null) {
+  if (subIndex !== null) {
     // check/uncheck subTask
     taskClicked = mainTask.subTasks[subIndex];
     taskClicked.complete = taskClicked.complete ? false : true;
@@ -479,15 +482,14 @@ function taskDone(index, subIndex = null) {
         subTask.complete = taskClicked.complete;
       });
   }
+  changeStyles(index);
+  setProgress();
   localStorage.setItem(index, JSON.stringify(tasks[index]));
-  updateUI();
 }
 
 function openClose(id, index) {
-  tasks[index].expand;
   tasks[index].expand = !tasks[index].expand;
   saveData(index);
-  tasks[index].expand;
   let elementShowHide = document.getElementById(id);
   // console.log(elementShowHide.style.display);
 

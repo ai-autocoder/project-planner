@@ -113,14 +113,19 @@ body {
 }
 
 .header {
+  position: -webkit-sticky;
+  position: sticky;
   z-index: 2;
+  padding: 10px;
+  top: 0;
   background: rgba(105, 105, 105, 0.95);
   border-bottom: 1px black solid;
   font-size: 1.1rem;
+  transition: box-shadow linear 0.3s;
 }
 
 .progress-bar {
-  margin: 0.5rem 1rem;
+  margin: 0 1rem;
   height: 3rem;
   color: white;
   background-color: #b1b1b1;
@@ -147,21 +152,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  max-width: 1440px;
-  max-width: 1440px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px, rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
-  transition: 0.6s;
-  border: none;
-}
-
-.sticky-margin {
-  margin-top: 130px;
 }
 
 .service-bar {
@@ -265,7 +255,8 @@ body {
   border-radius: 2px;
   position: relative;
 }
-.task-list-child .task {
+
+.task {
   display: grid;
   grid-template-columns: 10% auto 10% 10% 10%;
   align-items: center;
@@ -274,45 +265,57 @@ body {
   gap: 0.5rem;
   border-radius: 2px;
 }
-.task-list-child .task .task-name {
+.task .task-name {
   max-width: 50ch;
   color: #535353;
   line-height: 1.4em;
   padding: 0.5rem;
   margin: 0;
 }
-.task-list-child .task .task-time {
+.task .task-time {
   color: #696969;
 }
-.task-list-child .sub-tasks-container {
+
+.sub-tasks-container {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   flex-direction: column;
   margin: 0 0 0 5rem;
 }
-.task-list-child .sub-tasks-container > * {
+.sub-tasks-container > * {
   padding: 0.5rem;
 }
-.task-list-child .sub-tasks-container .add-sub-task {
+
+.add-sub-task {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
   border-radius: 2px;
 }
-.task-list-child .sub-tasks-container .add-sub-task .add-sub-btn {
+.add-sub-task .add-sub-btn {
   color: white;
   background-color: #3673ce;
   margin-left: 1rem;
 }
-.task-list-child .sub-tasks-container .sub-task {
+
+.sub-task {
   background: #dddddd;
   margin: 0 0.5rem 0.5rem 0.5rem;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
-.task-list-child .sub-tasks-container .sub-task:hover {
+.sub-task:hover {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.task-complete {
+  background: var(--task-complete);
+  box-shadow: none;
+}
+.task-complete .edit-task,
+.task-complete .button-remove {
+  background: var(--task-complete);
 }
 
 @media only screen and (max-width: 700px) {
@@ -342,6 +345,10 @@ body {
     margin-left: 1rem;
   }
 }
+.elevated {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px, rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
+}
+
 @media only screen and (max-width: 425px) {
   .service-bar {
     flex-direction: column;
