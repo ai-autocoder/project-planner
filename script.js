@@ -413,7 +413,9 @@ function hasSubTasks(task) {
 
 function calcProgress() {
   // tasks.reduce();
-  let totalTime, timeDone, progress;
+  let totalTime = 0,
+    timeDone = 0,
+    progress = 0;
   tasks.forEach((task, index) => {
     if (hasSubTasks(task)) {
       let taskTime = 0,
