@@ -55,7 +55,6 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   min-width: 100px;
   font-size: 1.1em;
   font-weight: 500;
-  // line-height: 1.15;
   text-align: center;
   background: $accent-1;
   color: white;
@@ -67,8 +66,6 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   background: lightgray;
   position: relative;
   padding: 1.3em;
-  // width: 1.5em;
-  // height: 1.5em;
   color: black;
   appearance: none;
   outline: 0;
@@ -115,7 +112,6 @@ body {
   font-family: "Roboto", sans-serif !important;
   font-size: $font-size-global;
   min-height: 0vw; // safari responsive font fix
-  // padding: 0.4rem;
   margin: auto;
   max-width: 1440px;
   min-width: 320px;
@@ -133,8 +129,6 @@ body {
     right: 0;
     margin-right: 1rem;
     padding: 0.5em;
-    // width: min-content;
-    // padding: 0.7em;
     color: $accent-5;
     background: lightgray;
     text-align: center;
@@ -172,7 +166,6 @@ body {
     left: 0;
     background-color: $accent-1;
     height: 100%;
-    // transition: width 0.5s linear;
     transition: width 0.4s cubic-bezier(0, 0.06, 0.4, 1.26);
   }
   &::after {
@@ -337,8 +330,6 @@ body {
 }
 
 .task-complete {
-  background: var(--task-complete);
-  box-shadow: none;
   .edit-task,
   .button-remove {
     background: var(--task-complete);
