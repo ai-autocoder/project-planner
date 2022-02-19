@@ -3,6 +3,7 @@
 let tasks = [];
 let updateTimeInterval;
 const shadowZ2 = `0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)`;
+
 updateUI();
 
 (function addMainListener() {
@@ -174,7 +175,7 @@ function updateUI() {
   const container = document.getElementById("tasks-list-container");
 
   container.innerHTML = getHtmlTask();
-  changeStyles();
+  // changeStyles();
   setProgress(); //sets main progress changes
   addListeners();
 }
@@ -418,11 +419,17 @@ function calcProgress() {
     timeDone = 0,
     progress = 0;
   tasks.forEach((task, index) => {
+    const checkBox = document.getElementById(`bd-${index}`);
+    checkBox.checked = task.complete;
     if (hasSubTasks(task)) {
       let taskTime = 0,
         taskTimeDone = 0;
-      task.subTasks.forEach((subTask) => {
+      task.subTasks.forEach((subTask, subIndex) => {
         taskTime += Number(subTask.time);
+        const checkBox = document.getElementById(`bd-${index}-${subIndex}`);
+        checkBox.checked = subTask.complete;
+        setTaskProgress(index, 0, subIndex, subTask.complete);
+
         if (subTask.complete) taskTimeDone += Number(subTask.time);
       });
       const displayedTime = document.getElementById(`task-time-${index}`);
@@ -430,10 +437,13 @@ function calcProgress() {
       totalTime += taskTime;
       timeDone += taskTimeDone;
       const taskProgress = Math.trunc((taskTimeDone / taskTime) * 100);
-      setTaskBackground(index, taskProgress);
+      setTaskProgress(index, taskProgress);
     } else {
       totalTime += Number(task.time);
-      if (task.complete) timeDone += Number(task.time);
+      if (task.complete) {
+        timeDone += Number(task.time);
+        setTaskProgress(index, 100);
+      } else setTaskProgress(index, 0);
     }
   });
   progress = Math.trunc((timeDone / totalTime) * 100);
@@ -450,13 +460,41 @@ function calcProgress() {
     timeLeft: totalTime - timeDone,
   };
 }
-function setTaskBackground(index, taskProgress) {
-  const taskDiv = document.getElementById(`task-list-child-${index}`);
-  let width = parseInt((taskDiv.offsetWidth * taskProgress) / 100);
-  taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ2}`;
+function setTaskProgress(
+  index,
+  taskProgress,
+  subIndex = null,
+  subComplete = false
+) {
+  let width = 0;
+  if (subIndex !== null) {
+    const taskDiv = document.getElementById(`sub-task-${index}-${subIndex}`);
+    if (subComplete) {
+      width = getWidth(taskDiv, index);
+      taskDiv.classList.add("task-complete");
+    } else taskDiv.classList.remove("task-complete");
+    taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ2}`;
+  } else {
+    const taskDiv = document.getElementById(`task-list-child-${index}`);
+    let width = parseInt((taskDiv.offsetWidth * taskProgress) / 100);
+    taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ2}`;
+    if (taskProgress == 100) taskDiv.classList.add("task-complete");
+    else taskDiv.classList.remove("task-complete");
+  }
 }
-
+function getWidth(element, index) {
+  const expanded = tasks[index].expand;
+  if (expanded) return element.offsetWidth;
+  else {
+    parent = document.getElementById(`sub-tasks-container-${index}`);
+    parent.style.display = "block";
+    let width = element.offsetWidth;
+    parent.style.display = "none";
+    return width;
+  }
+}
 function taskDone(index, subIndex = null) {
+  console.log(this);
   let mainTask = tasks[index];
   let taskClicked;
   if (subIndex !== null) {
@@ -484,7 +522,6 @@ function taskDone(index, subIndex = null) {
         subTask.complete = taskClicked.complete;
       });
   }
-  changeStyles(index);
   setProgress();
   localStorage.setItem(index, JSON.stringify(tasks[index]));
 }
