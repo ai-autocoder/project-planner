@@ -324,6 +324,7 @@ body {
   background: $accent-6;
   margin: 0 0.5rem 0.5rem 0.5rem;
   box-shadow: $shadow-z2;
+  transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
   &:hover {
     box-shadow: $shadow-z4;
   }
@@ -333,6 +334,7 @@ body {
   .edit-task,
   .button-remove {
     background: var(--task-complete);
+    transition: background-color 0.6s linear;
   }
 }
 @media only screen and (max-width: 700px) {
