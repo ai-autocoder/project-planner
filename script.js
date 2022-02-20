@@ -7,11 +7,12 @@ const shadowZ4 = `0px 2px 4px -1px rgba(0, 0, 0, 0.2),
 
 updateUI();
 
-(function addMainListener() {
+(function addMainListeners() {
   const mainAddTask = document.getElementById(`add-button`);
   mainAddTask.addEventListener("click", function (e) {
     addTask();
   });
+  visualViewport.addEventListener("resize", calcProgress);
 })();
 (function headerShadow() {
   const header = document.getElementById("header");
