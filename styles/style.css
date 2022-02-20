@@ -245,7 +245,6 @@ body {
 
 .task-list-child {
   background: #dddddd;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   padding: 1em;
   position: relative;
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
@@ -295,11 +294,7 @@ body {
 .sub-task {
   background: #dddddd;
   margin: 0 0.5rem 0.5rem 0.5rem;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
-}
-.sub-task:hover {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .task-complete .edit-task,

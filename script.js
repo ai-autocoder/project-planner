@@ -2,7 +2,8 @@
 // Global variables
 let tasks = [];
 let updateTimeInterval;
-const shadowZ2 = `0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)`;
+const shadowZ4 = `0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)`;
 
 updateUI();
 
@@ -472,14 +473,21 @@ function setTaskProgress(
     if (subComplete) {
       width = getWidth(taskDiv, index);
       taskDiv.classList.add("task-complete");
-    } else taskDiv.classList.remove("task-complete");
-    taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ2}`;
+      taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%)`;
+    } else {
+      taskDiv.classList.remove("task-complete");
+      taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ4}`;
+    }
   } else {
     const taskDiv = document.getElementById(`task-list-child-${index}`);
     let width = parseInt((taskDiv.offsetWidth * taskProgress) / 100);
-    taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ2}`;
-    if (taskProgress == 100) taskDiv.classList.add("task-complete");
-    else taskDiv.classList.remove("task-complete");
+    if (taskProgress == 100) {
+      taskDiv.classList.add("task-complete");
+      taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%)`;
+    } else {
+      taskDiv.classList.remove("task-complete");
+      taskDiv.style.boxShadow = `inset ${width}px 0px 0px 0.1px hsl(126, 80%, 61%), ${shadowZ4}`;
+    }
   }
 }
 function getWidth(element, index) {
