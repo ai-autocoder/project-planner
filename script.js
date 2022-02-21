@@ -7,13 +7,34 @@ const shadowZ4 = `0px 2px 4px -1px rgba(0, 0, 0, 0.2),
 
 updateUI();
 
+const debounce = function (func, delay) {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func();
+    }, delay);
+  };
+};
+
 (function addMainListeners() {
   const mainAddTask = document.getElementById(`add-button`);
   mainAddTask.addEventListener("click", function (e) {
     addTask();
   });
-  visualViewport.addEventListener("resize", calcProgress);
+  // Recalc progress shadows only when width of the page changes
+  let pageWidth = window.innerWidth;
+  visualViewport.addEventListener(
+    "resize",
+    debounce(function () {
+      if (pageWidth == window.innerWidth) return;
+      window.requestAnimationFrame(calcProgress);
+      console.log(`recalc`);
+      pageWidth = window.innerWidth;
+    }, 100)
+  );
 })();
+
 (function headerShadow() {
   const header = document.getElementById("header");
   window.addEventListener(
