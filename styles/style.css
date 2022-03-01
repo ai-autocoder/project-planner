@@ -33,7 +33,7 @@
 }
 
 .checkbox-done {
-  background: lightgray;
+  background: #d3d3d3;
   position: relative;
   padding: 1.3em;
   color: black;
@@ -82,7 +82,7 @@
 
 body {
   font-family: "Roboto", sans-serif !important;
-  font-size: clamp( 1.1rem, calc(1.1rem + ((1vw - 0.265625rem) * 0.3153)), 1.3rem );
+  font-size: clamp(1.1rem, 1.1rem + (1vw - 0.265625rem) * 0.3153, 1.3rem);
   min-height: 0vw;
   margin: auto;
   max-width: 1440px;
@@ -113,10 +113,10 @@ body {
 .header {
   position: -webkit-sticky;
   position: sticky;
-  z-index: 2;
+  z-index: 10;
   padding: 10px;
   top: 0;
-  background: rgba(105, 105, 105, 0.95);
+  background: #696969f2;
   border-bottom: 1px black solid;
   font-size: 1.1rem;
   transition: box-shadow linear 0.3s;
@@ -166,7 +166,7 @@ body {
 
 .add-task-form {
   display: flex;
-  font-size: clamp( 1rem, calc(1rem + ((1vw - 0.265625rem) * 0.1576)), 1.1rem );
+  font-size: clamp(1rem, 1rem + (1vw - 0.265625rem) * 0.1576, 1.1rem);
   padding: 1rem;
   gap: 0.3em;
 }
@@ -175,7 +175,7 @@ body {
   padding: 1em 0.5em;
   background: #dddddd;
   font-family: "Roboto", sans-serif;
-  font-size: clamp( 1rem, calc(1rem + ((1vw - 0.265625rem) * 0.1576)), 1.1rem );
+  font-size: clamp(1rem, 1rem + (1vw - 0.265625rem) * 0.1576, 1.1rem);
   color: #696969;
 }
 .add-task-form input[type=text] {
@@ -193,7 +193,7 @@ body {
   text-align: center;
   background: #dddddd;
   font-family: "Roboto", sans-serif;
-  font-size: clamp( 1rem, calc(1rem + ((1vw - 0.265625rem) * 0.1576)), 1.1rem );
+  font-size: clamp(1rem, 1rem + (1vw - 0.265625rem) * 0.1576, 1.1rem);
 }
 .add-task-form select option {
   color: #696969;
@@ -216,13 +216,13 @@ body {
 }
 
 .sub-form input {
-  background: rgba(255, 255, 255, 0.4);
+  background: #ffffff66;
 }
 .sub-form input[type=text] {
   flex-grow: 1;
 }
 .sub-form select {
-  background: rgba(255, 255, 255, 0.4);
+  background: #ffffff66;
 }
 .sub-form select option {
   color: #696969;
@@ -245,17 +245,17 @@ body {
 
 .task-list-child {
   background: #dddddd;
-  padding: 1em;
   position: relative;
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
 }
 
 .task {
+  position: relative;
   display: grid;
   grid-template-columns: 10% auto 10% 10% 10%;
   align-items: center;
   justify-items: center;
-  padding: 0.5em 1em;
+  padding: 1.5em 2em;
   gap: 0.5rem;
 }
 .task .task-name {
@@ -292,6 +292,7 @@ body {
 }
 
 .sub-task {
+  position: relative;
   background: #dddddd;
   margin: 0 0.5rem 0.5rem 0.5rem;
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
@@ -301,6 +302,72 @@ body {
 .task-complete .button-remove {
   background: var(--task-complete);
   transition: background-color 0.6s linear;
+}
+
+.elevated {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px, rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  background-color: grey;
+  padding: 0.25rem;
+  width: 100%;
+  min-height: 100%;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 5em 5em;
+  align-items: end;
+  gap: 0.35rem;
+}
+.overlay textarea {
+  align-self: stretch;
+  font-size: clamp(1rem, 1rem + (1vw - 0.265625rem) * 0.1576, 1.1rem);
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #535353;
+  grid-row: span 2;
+  resize: vertical;
+}
+.overlay input,
+.overlay select {
+  font-size: clamp(1rem, 1rem + (1vw - 0.265625rem) * 0.1576, 1.1rem);
+  text-align: center;
+  min-width: 0%;
+  align-self: start;
+  padding: 0.65em;
+  border: 0;
+  color: #535353;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.overlay .button {
+  text-align: center;
+  padding: 0.5em;
+  background-color: lightgray;
+  color: #535353;
+}
+.overlay .button:hover {
+  background-color: #dddddd;
+}
+.overlay .button:active {
+  background-color: #3385ff;
+}
+.overlay .button-edit-save {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+.overlay .button-edit-cancel {
+  grid-row-start: 2;
+  grid-column-start: 3;
+}
+.overlay .task-time {
+  color: #dddddd;
+  grid-column: span 2;
 }
 
 @media only screen and (max-width: 700px) {
@@ -329,11 +396,34 @@ body {
   .task-list-child .sub-tasks-container {
     margin-left: 1rem;
   }
-}
-.elevated {
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px, rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
-}
 
+  .overlay {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto 40px;
+    align-items: stretch;
+    justify-items: stretch;
+  }
+  .overlay textarea {
+    padding: 3px;
+    grid-column: span 4;
+    grid-row: auto;
+  }
+  .overlay input,
+.overlay select {
+    text-align: center;
+    align-self: stretch;
+    padding: 0;
+  }
+  .overlay .button-edit-save {
+    grid-column-start: 3;
+    grid-row-start: 2;
+  }
+  .overlay .button-edit-cancel {
+    grid-column-start: 4;
+    grid-row-start: 2;
+  }
+}
 @media only screen and (max-width: 425px) {
   .service-bar {
     flex-direction: column;
@@ -356,5 +446,22 @@ body {
   }
   .task-list-child .sub-tasks-container {
     margin-left: 1rem;
+  }
+
+  .overlay {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 40px 40px;
+  }
+  .overlay textarea {
+    padding: 3px;
+    grid-column: span 2;
+  }
+  .overlay .button-edit-save {
+    grid-row-start: 3;
+    grid-column-start: 1;
+  }
+  .overlay .button-edit-cancel {
+    grid-row-start: 3;
+    grid-column-start: 2;
   }
 }/*# sourceMappingURL=style.css.map */

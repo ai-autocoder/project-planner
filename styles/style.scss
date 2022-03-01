@@ -14,9 +14,9 @@ $accent-1: #3673ce;
 $accent-3: #3385ff;
 $accent-4: #535353;
 $accent-5: #696969;
-$accent-5-transparence: rgba(105, 105, 105, 0.95);
+$accent-5-transparence: #696969f2;
 $accent-6: #dddddd;
-$accent-6-transparence: hsla(0, 0%, 100%, 0.4);
+$accent-6-transparence: #ffffff66;
 
 // Material shadows
 $shadow-z1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -63,7 +63,7 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   }
 }
 .checkbox-done {
-  background: lightgray;
+  background: #d3d3d3;
   position: relative;
   padding: 1.3em;
   color: black;
@@ -140,7 +140,7 @@ body {
 }
 .header {
   position: sticky;
-  z-index: 2;
+  z-index: 10;
   padding: 10px;
   top: 0;
   background: $accent-5-transparence;
@@ -274,16 +274,17 @@ body {
 }
 .task-list-child {
   background: $accent-6;
-  padding: 1em;
+  // padding: 1em;
   position: relative;
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
 }
 .task {
+  position: relative;
   display: grid;
   grid-template-columns: 10% auto 10% 10% 10%;
   align-items: center;
   justify-items: center;
-  padding: 0.5em 1em;
+  padding: 1.5em 2em;
   gap: 0.5rem;
   .task-name {
     max-width: 50ch;
@@ -320,6 +321,7 @@ body {
 }
 
 .sub-task {
+  position: relative;
   background: $accent-6;
   margin: 0 0.5rem 0.5rem 0.5rem;
   transition: box-shadow 0.6s cubic-bezier(0, 0.48, 0.25, 1);
@@ -332,6 +334,74 @@ body {
     transition: background-color 0.6s linear;
   }
 }
+.elevated {
+  box-shadow: $shadow-z18;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  background-color: grey;
+  padding: 0.25rem;
+  width: 100%;
+  min-height: 100%;
+  box-shadow: $shadow-z8;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 5em 5em;
+  // grid-auto-rows: stretch;
+  // align-items: center;
+  align-items: end;
+  gap: 0.35rem;
+  textarea {
+    align-self: stretch;
+    font-size: $font-size-input;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: $accent-4;
+    grid-row: span 2;
+    resize: vertical;
+  }
+  input,
+  select {
+    font-size: $font-size-input;
+    text-align: center;
+    min-width: 0%;
+    align-self: start;
+    padding: 0.65em;
+    border: 0;
+    color: $accent-4;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  .button {
+    text-align: center;
+    padding: 0.5em;
+    // margin: 0.125rem;
+    background-color: lightgray;
+    color: $accent-4;
+    &:hover {
+      background-color: $accent-6;
+    }
+    &:active {
+      background-color: $accent-3;
+    }
+  }
+  .button-edit-save {
+    grid-row-start: 2;
+    grid-column-start: 2;
+  }
+  .button-edit-cancel {
+    grid-row-start: 2;
+    grid-column-start: 3;
+  }
+  .task-time {
+    color: $accent-6;
+    grid-column: span 2;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .add-task-form {
     flex-wrap: wrap;
@@ -359,9 +429,35 @@ body {
       margin-left: 1rem;
     }
   }
-}
-.elevated {
-  box-shadow: $shadow-z18;
+  .overlay {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    // grid-template-columns: auto 4em 4em 4em;
+    grid-template-rows: auto 40px;
+    align-items: stretch;
+    justify-items: stretch;
+    // padding: 0.2rem;
+    // gap: 0.1rem;
+    textarea {
+      padding: 3px;
+      grid-column: span 4;
+      grid-row: auto;
+    }
+    input,
+    select {
+      text-align: center;
+      align-self: stretch;
+      padding: 0;
+    }
+    .button-edit-save {
+      grid-column-start: 3;
+      grid-row-start: 2;
+    }
+    .button-edit-cancel {
+      grid-column-start: 4;
+      grid-row-start: 2;
+    }
+  }
 }
 @media only screen and (max-width: 425px) {
   .service-bar {
@@ -385,6 +481,22 @@ body {
     }
     .sub-tasks-container {
       margin-left: 1rem;
+    }
+  }
+  .overlay {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 40px 40px;
+    textarea {
+      padding: 3px;
+      grid-column: span 2;
+    }
+    .button-edit-save {
+      grid-row-start: 3;
+      grid-column-start: 1;
+    }
+    .button-edit-cancel {
+      grid-row-start: 3;
+      grid-column-start: 2;
     }
   }
 }
