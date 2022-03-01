@@ -121,10 +121,10 @@ function getTimeString(time) {
   const days = Math.floor((time / 60 / 24) % 7);
   const weeks = Math.floor(time / 60 / 24 / 7);
   let timeString = "";
-  if (weeks) timeString += `${weeks} Wk<br>`;
-  if (days) timeString += `${days} Day<br>`;
-  if (hours) timeString += `${hours} Hr<br>`;
-  if (minutes) timeString += `${minutes} Min`;
+  if (weeks) timeString += `${weeks}w `;
+  if (days) timeString += `${days}d `;
+  if (hours) timeString += `${hours}h `;
+  if (minutes) timeString += `${minutes}m `;
 
   return timeString;
 }
