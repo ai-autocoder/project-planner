@@ -84,7 +84,10 @@ function addTask(index = undefined) {
   let taskToAdd = new Task(title, time);
 
   if (index == undefined) tasks.push(taskToAdd);
-  else tasks[index].subTasks.push(taskToAdd);
+  else {
+    tasks[index].subTasks.push(taskToAdd);
+    tasks[index].complete = false;
+  }
   document.forms.newTask.reset();
   saveData();
   updateUI();
