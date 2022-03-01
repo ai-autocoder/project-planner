@@ -59,7 +59,7 @@ function validate(title, time) {
     return false;
   }
   if (time <= 0 || isNaN(time) || time == "") {
-    pElement.innerHTML = "Time must be a number greater than 0";
+    pElement.innerHTML = "Time must be greater than 0";
     return false;
   }
   pElement.innerHTML = "";
