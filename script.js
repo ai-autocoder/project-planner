@@ -29,7 +29,6 @@ const debounce = function (func, delay) {
     debounce(function () {
       if (pageWidth == window.innerWidth) return;
       window.requestAnimationFrame(calcProgress);
-      console.log(`recalc`);
       pageWidth = window.innerWidth;
     }, 100)
   );
@@ -53,9 +52,7 @@ function Task(name, time, timeType) {
   this.expand = false;
   this.subTasks = [];
 }
-var loops = 0;
 function validate(title, time) {
-  loops++;
   const pElement = document.getElementById("validate-message");
   if (!title) {
     pElement.innerHTML = "Invalid description";
@@ -71,7 +68,6 @@ function validate(title, time) {
 
 function addTask(index = undefined) {
   let title, time, timeType;
-  console.log(`hello! ${loops}`);
   // main task
   if (index == undefined) {
     title = document.getElementById("task").value;
@@ -117,7 +113,6 @@ function updateTasksArray() {
   }
 }
 function getTimeString(time) {
-  // let mins, hours, days, weeks;
   const minutes = Math.floor(time % 60);
   const hours = Math.floor((time / 60) % 24);
   const days = Math.floor((time / 60 / 24) % 7);
@@ -196,7 +191,6 @@ function updateUI() {
   const container = document.getElementById("tasks-list-container");
 
   container.innerHTML = getHtmlTask();
-  // changeStyles();
   setProgress(); //sets main progress changes
   addListeners();
 }
@@ -239,14 +233,6 @@ function changeStyles(taskIndex = null) {
   }
 }
 function addListeners() {
-  // document.addEventListener("click", (e) => {
-  //   if (e.target.matches(".edit-task")) {
-  //     console.log(e.target);
-  //   }
-  // });
-
-  // Add event listeners new approach
-
   tasks.forEach((task, index) => {
     //  done main task
     const mainDoneButton = document.getElementById(`bd-${index}`);
@@ -341,7 +327,6 @@ ${getTimeHtml(index)}
 
 <div class="button button-edit-save" id="save-${index}-${subIndex}" onclick="saveEdit(${index},${subIndex})">Save</div><div class="button button-edit-cancel" id="cancel-${index}" onclick="closeEdit()">Cancel</div>`;
   }
-  //append new node as a child
   parentDiv.appendChild(editDiv);
   // focus on textarea end of text
   var input = document.querySelector("#edit-overlay > textarea");
@@ -349,7 +334,6 @@ ${getTimeHtml(index)}
   input.setSelectionRange(end, end);
   input.focus();
 
-  // add class overlay (with transition on opacity)
   editDiv.classList.add("overlay");
   editDiv.style.opacity = "1";
 }
@@ -400,15 +384,11 @@ function closeEdit() {
 
 function saveEdit(index, subIndex = null) {
   const title = document.querySelector("#edit-overlay > textarea").value;
-
   let taskToEdit;
   let nameDiv;
-
-  // is a task
   if (subIndex == null) {
     taskToEdit = tasks[index];
     nameDiv = document.getElementById(`main-task-name-${index}`);
-    // ha sub task
     if (hasSubTasks(taskToEdit)) {
       taskToEdit.name = title;
       const time = taskToEdit.time;
@@ -418,8 +398,7 @@ function saveEdit(index, subIndex = null) {
       closeEdit();
       return;
     }
-  } //is a sub task
-  else {
+  } else {
     taskToEdit = tasks[index].subTasks[subIndex];
     nameDiv = document.getElementById(`task-name-${index}-${subIndex}`);
   }
@@ -470,9 +449,8 @@ function updateTime(timeLeft) {
 }
 
 function removeTask(index, subIndex = undefined) {
-  if (subIndex != undefined)
-    console.log("removed task " + tasks[index].subTasks.splice(subIndex, 1));
-  else console.log("removed task " + tasks.splice(index, 1));
+  if (subIndex != undefined) tasks[index].subTasks.splice(subIndex, 1);
+  else tasks.splice(index, 1);
   saveData();
   updateUI();
 }
@@ -483,23 +461,15 @@ function saveData() {
     localStorage.setItem(index, JSON.stringify(task));
   });
 }
-// localStorage.getItem("key");
-// localStorage.removeItem("key");
 
-// localStorage.setItem("id", JSON.stringify(user));
-// JSON.parse(localStorage.getItem("id"));
-// document.getElementById("").addEventListener(click, function() {
-
-// })
-
-// for debug only
+// Sample tasks
 function reloadTasks() {
   localStorage.setItem(
     0,
     JSON.stringify(
       new Task(
         "Task 0 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -509,7 +479,7 @@ function reloadTasks() {
     JSON.stringify(
       new Task(
         "Task 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -519,7 +489,7 @@ function reloadTasks() {
     JSON.stringify(
       new Task(
         "Task 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -529,7 +499,7 @@ function reloadTasks() {
     JSON.stringify(
       new Task(
         "Task 3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -539,7 +509,7 @@ function reloadTasks() {
     JSON.stringify(
       new Task(
         "Task 4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -549,7 +519,7 @@ function reloadTasks() {
     JSON.stringify(
       new Task(
         "Task 5 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        5,
+        50,
         "min"
       )
     )
@@ -563,7 +533,6 @@ function hasSubTasks(task) {
 }
 
 function calcProgress() {
-  // tasks.reduce();
   let totalTime = 0,
     timeDone = 0,
     progress = 0;
@@ -597,12 +566,6 @@ function calcProgress() {
   });
   progress = Math.trunc((timeDone / totalTime) * 100);
   if (isNaN(progress)) progress = 0;
-
-  // Debug
-  // console.log("Total time required: " + totalTime);
-  // console.log("Time done: " + timeDone);
-  // console.log("Progress: " + progress);
-
   return {
     percentValue: progress,
     progressValue: `"${progress}%"`,
@@ -650,7 +613,6 @@ function getWidth(element, index) {
   }
 }
 function taskDone(index, subIndex = null) {
-  console.log(this);
   let mainTask = tasks[index];
   let taskClicked;
   if (subIndex !== null) {
@@ -686,8 +648,6 @@ function openClose(id, index) {
   tasks[index].expand = !tasks[index].expand;
   saveData(index);
   let elementShowHide = document.getElementById(id);
-  // console.log(elementShowHide.style.display);
-
   elementShowHide.style.display = tasks[index].expand
     ? elementShowHide.setAttribute(`style`, `display:flex`)
     : elementShowHide.setAttribute(`style`, `display:none`);
