@@ -296,6 +296,10 @@ body {
   .task-time {
     color: $accent-5;
   }
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+  }
 }
 .sub-tasks-container {
   background: rgba(0, 0, 0, 0.1);

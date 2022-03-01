@@ -139,7 +139,7 @@ function getHtmlTask() {
     <div class="task-list-child" id="task-list-child-${index}">
       <div class="task" id="main-task-${index}">
         <input type="checkbox" class="checkbox-done button" id="bd-${index}">
-        <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}">${task.name}</div>
+        <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}"><pre>${task.name}</pre></div>
         <div class="button edit-task" id="edit-task-${index}"><span class="material-icons">
         edit
         </span></div>
@@ -172,7 +172,7 @@ function getHtmlTask() {
             return `
             <div class="task sub-task" id="sub-task-${index}-${subIndex}">
               <input type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}">
-              <div class="task-name" id="task-name-${index}-${subIndex}">${subTask.name}</div>
+              <div class="task-name" id="task-name-${index}-${subIndex}"><pre>${subTask.name}</pre></div>
               <div class="button edit-task" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
               edit</span></div>
               <div class="task-time" id="task-time-${index}-${subIndex}">${subTimeString}</div>
@@ -414,7 +414,7 @@ function saveEdit(index, subIndex = null) {
       const time = taskToEdit.time;
       if (!validate(title, time)) return;
       saveData();
-      nameDiv.innerHTML = title;
+      nameDiv.innerHTML = `<pre>${title}</pre>`;
       closeEdit();
       return;
     }
@@ -430,7 +430,7 @@ function saveEdit(index, subIndex = null) {
   const computedMins = getMinutes(time, timeType);
   if (taskToEdit.time == computedMins) {
     saveData();
-    nameDiv.innerHTML = title;
+    nameDiv.innerHTML = `<pre>${title}</pre>`;
     closeEdit();
     return;
   }
