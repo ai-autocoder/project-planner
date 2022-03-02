@@ -135,14 +135,14 @@ function getHtmlTask() {
       const timeString = getTimeString(task.time);
       let mainTaskHtml = `
     <div class="task-list-child" id="task-list-child-${index}">
-      <div class="task" id="main-task-${index}">
-        <input type="checkbox" class="checkbox-done button" id="bd-${index}">
-        <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}"><pre id="name-${index}">${task.name}</pre></div>
-        <div class="button edit-task" id="edit-task-${index}"><span class="material-icons">
+      <div title="Click to open sub tasks" class="task" id="main-task-${index}">
+        <input title="Complete" type="checkbox" class="checkbox-done button" id="bd-${index}">
+        <div class="main-task-name task-name" id="main-task-name-${index}"><pre id="name-${index}">${task.name}</pre></div>
+        <div title="Edit" class="button edit-task" id="edit-task-${index}"><span class="material-icons">
         edit
         </span></div>
-        <div class="task-time" id="task-time-${index}">${timeString}</div>
-        <div class="button button-remove" id="remove-task-${index}"><span class="material-icons">delete</span></div>
+        <div title="" class="task-time" id="task-time-${index}">${timeString}</div>
+        <div title="Delete" class="button button-remove" id="remove-task-${index}"><span class="material-icons">delete</span></div>
       </div>
       <div class="sub-tasks-container" id="sub-tasks-container-${index}" style="${expanded}">
         
@@ -169,12 +169,12 @@ function getHtmlTask() {
             const subTimeString = getTimeString(subTask.time);
             return `
             <div class="task sub-task" id="sub-task-${index}-${subIndex}">
-              <input type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}">
+              <input title="Complete" type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}">
               <div class="task-name" id="task-name-${index}-${subIndex}"><pre>${subTask.name}</pre></div>
-              <div class="button edit-task" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
+              <div title="Edit" class="button edit-task" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
               edit</span></div>
-              <div class="task-time" id="task-time-${index}-${subIndex}">${subTimeString}</div>
-              <div class="button button-remove" id="remove-sub-task-${index}-${subIndex}"><span class="material-icons">
+              <div title="" class="task-time" id="task-time-${index}-${subIndex}">${subTimeString}</div>
+              <div title="Delete" class="button button-remove" id="remove-sub-task-${index}-${subIndex}"><span class="material-icons">
               delete
               </span></div>
             </div>
