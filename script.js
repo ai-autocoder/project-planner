@@ -399,9 +399,9 @@ function saveEdit(index, subIndex = null) {
     nameDiv = document.getElementById(`main-task-name-${index}`);
     htmlDiv = `<pre id="name-${index}">${title}</pre>`;
     if (hasSubTasks(taskToEdit)) {
-      taskToEdit.name = title;
       const time = taskToEdit.time;
       if (!validate(title, time)) return;
+      taskToEdit.name = title;
       saveData();
       nameDiv.innerHTML = htmlDiv;
       closeEdit();
