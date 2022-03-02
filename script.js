@@ -137,7 +137,7 @@ function getHtmlTask() {
     <div class="task-list-child" id="task-list-child-${index}">
       <div class="task" id="main-task-${index}">
         <input type="checkbox" class="checkbox-done button" id="bd-${index}">
-        <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}"><pre>${task.name}</pre></div>
+        <div title="Open sub tasks" class="main-task-name task-name" id="main-task-name-${index}"><pre id="name-${index}">${task.name}</pre></div>
         <div class="button edit-task" id="edit-task-${index}"><span class="material-icons">
         edit
         </span></div>
@@ -244,9 +244,15 @@ function addListeners() {
       taskDone(index);
     });
 
-    //  show/hide sub task listener
-    const mainTaskName = document.getElementById(`main-task-name-${index}`);
+    //  show/hide sub task listeners
+    const mainTaskDiv = document.getElementById(`main-task-${index}`);
+    mainTaskDiv.addEventListener("click", function (e) {
+      if (e.target !== this) return;
+      openClose(`sub-tasks-container-${index}`, index);
+    });
+    const mainTaskName = document.getElementById(`name-${index}`);
     mainTaskName.addEventListener("click", function (e) {
+      if (e.target !== this) return;
       openClose(`sub-tasks-container-${index}`, index);
     });
     //  edit main task listener
@@ -387,23 +393,24 @@ function closeEdit() {
 
 function saveEdit(index, subIndex = null) {
   const title = document.querySelector("#edit-overlay > textarea").value;
-  let taskToEdit;
-  let nameDiv;
+  let taskToEdit, nameDiv, htmlDiv;
   if (subIndex == null) {
     taskToEdit = tasks[index];
     nameDiv = document.getElementById(`main-task-name-${index}`);
+    htmlDiv = `<pre id="name-${index}">${title}</pre>`;
     if (hasSubTasks(taskToEdit)) {
       taskToEdit.name = title;
       const time = taskToEdit.time;
       if (!validate(title, time)) return;
       saveData();
-      nameDiv.innerHTML = `<pre>${title}</pre>`;
+      nameDiv.innerHTML = htmlDiv;
       closeEdit();
       return;
     }
   } else {
     taskToEdit = tasks[index].subTasks[subIndex];
     nameDiv = document.getElementById(`task-name-${index}-${subIndex}`);
+    htmlDiv = `<pre>${title}</pre>`;
   }
   const time = document.querySelector("#edit-overlay > input").valueAsNumber;
   const timeType = document.querySelector("#edit-overlay > select").value;
@@ -412,7 +419,7 @@ function saveEdit(index, subIndex = null) {
   const computedMins = getMinutes(time, timeType);
   if (taskToEdit.time == computedMins) {
     saveData();
-    nameDiv.innerHTML = `<pre>${title}</pre>`;
+    nameDiv.innerHTML = htmlDiv;
     closeEdit();
     return;
   }
