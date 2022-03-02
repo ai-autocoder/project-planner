@@ -39,7 +39,7 @@ const debounce = function (func, delay) {
   window.addEventListener(
     "scroll",
     () => {
-      header.classList.toggle("elevated", window.scrollY > 50);
+      header.classList.toggle("elevated", window.scrollY > 60);
     },
     { capture: false, passive: true }
   );
