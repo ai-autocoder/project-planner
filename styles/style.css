@@ -398,6 +398,49 @@ body {
   grid-column: span 2;
 }
 
+.footer {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 3rem;
+  color: #dddddd;
+  align-items: center;
+  justify-items: center;
+}
+.footer .logo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+.footer .logo .logo-container {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 2rem;
+  color: white;
+  align-items: center;
+}
+.footer .logo .logo-container img {
+  max-width: 2rem;
+}
+.footer .logo .copyright {
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+.footer .footer-nav a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+.footer .footer-nav a:visited {
+  color: inherit;
+}
+.footer .footer-nav a:hover {
+  color: white;
+}
+.footer .footer-nav a:active {
+  color: #868686;
+}
+
 @media only screen and (max-width: 1024px) {
   .task-list-child .task {
     padding: 1em;
@@ -472,6 +515,18 @@ body {
     grid-row-start: 2;
     padding: 0.7rem;
     align-self: stretch;
+  }
+
+  .footer {
+    padding: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 2fr;
+  }
+  .footer .footer-nav {
+    padding: 1rem;
+  }
+  .footer .logo {
+    grid-row-start: 3;
   }
 }
 @media only screen and (max-width: 600px) {
