@@ -45,7 +45,7 @@ const debounce = function (func, delay) {
   );
 })();
 
-function Task(name, time, timeType) {
+function Task(name, time) {
   this.name = name;
   this.time = time;
   this.complete = false;
