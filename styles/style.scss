@@ -287,10 +287,11 @@ body {
 
 .tasks-list-container {
   background-color: $accent-4;
-  padding: 0 1rem;
+  padding: 0 1rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 20vh;
 }
 .task-list-child {
   background: $accent-6;
@@ -431,10 +432,11 @@ body {
 .footer {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  padding: 3rem;
+  padding: 2rem 3rem 3rem;
   color: $accent-6;
   align-items: center;
   justify-items: center;
+  border-top: 1px black solid;
   .logo {
     display: flex;
     flex-direction: column;
@@ -585,7 +587,7 @@ body {
     padding: 0.5rem;
   }
   .tasks-list-container {
-    padding: 0 0.5rem;
+    padding: 0 0.5rem 1.5rem;
   }
 }
 

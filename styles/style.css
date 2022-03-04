@@ -254,10 +254,11 @@ body {
 
 .tasks-list-container {
   background-color: #696969;
-  padding: 0 1rem;
+  padding: 0 1rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 20vh;
 }
 
 .task-list-child {
@@ -401,10 +402,11 @@ body {
 .footer {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  padding: 3rem;
+  padding: 2rem 3rem 3rem;
   color: #dddddd;
   align-items: center;
   justify-items: center;
+  border-top: 1px black solid;
 }
 .footer .logo {
   display: flex;
@@ -551,7 +553,7 @@ body {
   }
 
   .tasks-list-container {
-    padding: 0 0.5rem;
+    padding: 0 0.5rem 1.5rem;
   }
 }
 @media only screen and (max-width: 425px) {
