@@ -474,23 +474,30 @@ function saveData() {
 
 // Sample tasks
 function reloadTasks() {
-  localStorage.setItem(
-    0,
-    JSON.stringify(
-      new Task(
-        "Task 0 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
-      )
+  let task1 = new Task("Task with subtasks.", 2880);
+  task1.subTasks.push(new Task("Sub Task 1", 2880));
+  task1.subTasks.push(
+    new Task(
+      "Sub Task 2. Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      4320
     )
   );
+  task1.subTasks.push(new Task("Sub Task. Lorem ipsum.", 5760));
+  task1.subTasks.push(
+    new Task(
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga ad recusanda dolores repellendus facilis eum sint ab error, corrupti consequuntur laboriosam optio aliquam laborum soluta vel obcaecati, odio corporis.",
+      7200
+    )
+  );
+  task1.subTasks.push(new Task("Sub Task 5", 8640));
+  localStorage.setItem(0, JSON.stringify(task1));
+
   localStorage.setItem(
     1,
     JSON.stringify(
       new Task(
-        "Task 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        2880
       )
     )
   );
@@ -498,9 +505,8 @@ function reloadTasks() {
     2,
     JSON.stringify(
       new Task(
-        "Task 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
+        4320
       )
     )
   );
@@ -508,9 +514,8 @@ function reloadTasks() {
     3,
     JSON.stringify(
       new Task(
-        "Task 3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident. Fuga ad recusandae dolores repellendus facilis eum sint ab error.",
+        4320
       )
     )
   );
@@ -518,9 +523,8 @@ function reloadTasks() {
     4,
     JSON.stringify(
       new Task(
-        "Task 4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident. Fuga ad recusandae dolores repellendus facilis eum sint ab error, corrupti consequuntur architecto laboriosam optio aliquam laborum soluta vel obcaecati, odio corporis.",
+        4320
       )
     )
   );
@@ -528,9 +532,26 @@ function reloadTasks() {
     5,
     JSON.stringify(
       new Task(
-        "Task 5 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident.",
-        50,
-        "min"
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident. Fuga ad recusandae dolores repellendus facilis eum sint ab error, corrupti consequuntur architecto laboriosam optio aliquam laborum soluta vel obcaecati, odio corporis. Nisi neque et fugiat porro aperiam ipsum cumque.",
+        4320
+      )
+    )
+  );
+  localStorage.setItem(
+    6,
+    JSON.stringify(
+      new Task(
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident. Fuga ad recusandae dolores repellendus facilis eum sint ab error, corrupti consequuntur architecto laboriosam optio aliquam laborum soluta vel obcaecati, odio corporis. Nisi neque et fugiat porro aperiam ipsum cumque.",
+        4320
+      )
+    )
+  );
+  localStorage.setItem(
+    7,
+    JSON.stringify(
+      new Task(
+        "Task Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa sed repellat odit nobis, explicabo provident. Fuga ad recusandae dolores repellendus facilis eum sint ab error, corrupti consequuntur architecto laboriosam optio aliquam laborum soluta vel obcaecati, odio corporis. Nisi neque et fugiat porro aperiam ipsum cumque.",
+        4320
       )
     )
   );
