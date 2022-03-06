@@ -136,13 +136,13 @@ function getHtmlTask() {
       let mainTaskHtml = `
     <div class="task-list-child" id="task-list-child-${index}">
       <div title="Click to open sub tasks" class="task" id="main-task-${index}">
-        <input title="Complete" type="checkbox" class="checkbox-done button" id="bd-${index}">
+        <input title="Complete" type="checkbox" class="checkbox-done button button-1" id="bd-${index}">
         <div class="main-task-name task-name" id="main-task-name-${index}"><pre id="name-${index}">${task.name}</pre></div>
-        <div title="Edit" class="button edit-task" id="edit-task-${index}"><span class="material-icons">
+        <div title="Edit" class="button edit-task button-1" id="edit-task-${index}"><span class="material-icons">
         edit
         </span></div>
         <div title="" class="task-time" id="task-time-${index}">${timeString}</div>
-        <div title="Delete" class="button button-remove" id="remove-task-${index}"><span class="material-icons">delete</span></div>
+        <div title="Delete" class="button button-remove button-1" id="remove-task-${index}"><span class="material-icons">delete</span></div>
       </div>
       <div class="sub-tasks-container" id="sub-tasks-container-${index}" style="${expanded}">
         
@@ -155,7 +155,7 @@ function getHtmlTask() {
               <option value="days">Days</option>
               <option value="weeks">Weeks</option>
             </select>
-            <div class="button add-button" id="add-sub-btn-${index}" form="add-task-form">
+            <div class="button add-button button-2" id="add-sub-btn-${index}" form="add-task-form">
               <span class="material-icons">
               add
               </span>
@@ -169,12 +169,12 @@ function getHtmlTask() {
             const subTimeString = getTimeString(subTask.time);
             return `
             <div class="task sub-task" id="sub-task-${index}-${subIndex}">
-              <input title="Complete" type="checkbox" class="checkbox-done button" id="bd-${index}-${subIndex}">
+              <input title="Complete" type="checkbox" class="checkbox-done button button-1" id="bd-${index}-${subIndex}">
               <div class="task-name" id="task-name-${index}-${subIndex}"><pre>${subTask.name}</pre></div>
-              <div title="Edit" class="button edit-task" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
+              <div title="Edit" class="button edit-task button-1" id="edit-sub-task-${index}-${subIndex}"><span class="material-icons">
               edit</span></div>
               <div title="" class="task-time" id="task-time-${index}-${subIndex}">${subTimeString}</div>
-              <div title="Delete" class="button button-remove" id="remove-sub-task-${index}-${subIndex}"><span class="material-icons">
+              <div title="Delete" class="button button-remove button-1" id="remove-sub-task-${index}-${subIndex}"><span class="material-icons">
               delete
               </span></div>
             </div>
@@ -318,7 +318,7 @@ function edit(index, subIndex = null) {
 
 ${getTimeHtml(index, subIndex)}
 
-<div class="button button-edit-save" id="save-${index}-${subIndex}" onclick="saveEdit(${index},${subIndex})">Save</div><div class="button button-edit-cancel" id="cancel-${index}" onclick="closeEdit()">Cancel</div>`;
+<div class="button button-edit-save button-1" id="save-${index}-${subIndex}" onclick="saveEdit(${index},${subIndex})">Save</div><div class="button button-edit-cancel button-1" id="cancel-${index}" onclick="closeEdit()">Cancel</div>`;
   } else {
     // it`s a task
     parentDiv = document.getElementById(`main-task-${index}`);
@@ -334,7 +334,7 @@ ${getTimeHtml(index, subIndex)}
 
 ${getTimeHtml(index)}
 
-<div class="button button-edit-save" id="save-${index}-${subIndex}" onclick="saveEdit(${index},${subIndex})">Save</div><div class="button button-edit-cancel" id="cancel-${index}" onclick="closeEdit()">Cancel</div>`;
+<div class="button button-edit-save button-1" id="save-${index}-${subIndex}" onclick="saveEdit(${index},${subIndex})">Save</div><div class="button button-edit-cancel button-1" id="cancel-${index}" onclick="closeEdit()">Cancel</div>`;
   }
   parentDiv.appendChild(editDiv);
   // focus on textarea end of text

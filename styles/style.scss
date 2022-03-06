@@ -12,14 +12,14 @@ $font-size-input: clamp(
 
 $font-family: "Roboto", sans-serif;
 
-$accent-1: #3673ce;
-$accent-2: #3385ff;
+$accent-1: #3571d8;
 $accent-3: #535353;
 $accent-4: #696969;
 $accent-4-transparence: #696969f2;
 $accent-5: #868686;
 $accent-6: #dddddd;
 $accent-6-transparence: #ffffff66;
+$accent-danger: rgb(255, 87, 82);
 
 // Material shadows
 $shadow-z1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -34,7 +34,7 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   rgba(0, 0, 0, 0.14) 0px 18px 28px 2px, rgba(0, 0, 0, 0.12) 0px 7px 34px 6px;
 
 :root {
-  --task-complete: hsl(126, 80%, 61%);
+  --task-complete: hsl(126, 62%, 55%);
 }
 
 *,
@@ -47,9 +47,36 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   padding: 0.8rem;
   cursor: pointer;
   box-shadow: $shadow-z1;
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: $shadow-z4;
+  }
+}
+.button-1 {
+  background-color: #d3d3d3;
+  color: $accent-3;
   &:hover {
     background-color: $accent-6;
-    box-shadow: $shadow-z4;
+  }
+  &:focus {
+    background-color: $accent-6;
+  }
+  &:active {
+    filter: brightness(0.5);
+  }
+}
+.button-2 {
+  color: white;
+
+  background-color: $accent-1;
+  &:hover {
+    filter: brightness(1.4);
+  }
+  &:focus {
+    filter: brightness(1.2);
+  }
+  &:active {
+    filter: brightness(0.8);
   }
 }
 .project-button {
@@ -59,17 +86,10 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   font-size: 1.1em;
   font-weight: 500;
   text-align: center;
-  background: $accent-1;
-  color: white;
-  &:hover {
-    background: $accent-2;
-  }
 }
 .checkbox-done {
-  background: #d3d3d3;
   position: relative;
   padding: 1.25rem;
-  color: black;
   appearance: none;
   outline: 0;
   margin: 0;
@@ -100,20 +120,6 @@ $shadow-z18: rgba(0, 0, 0, 0.2) 0px 9px 11px -5px,
   }
 }
 
-.edit-task {
-  padding: 0.5rem;
-  color: $accent-3;
-  background: lightgray;
-  font-size: 0;
-}
-
-.button-remove {
-  color: $accent-3;
-  background: lightgray;
-  padding: 0.5rem;
-  font-size: 0;
-}
-
 body {
   font-family: $font-family;
   font-size: $font-size-global;
@@ -137,12 +143,8 @@ body {
     margin-right: 1rem;
     padding: 0.5em;
     color: $accent-4;
-    background: lightgray;
     text-align: center;
     text-decoration: none;
-    &:hover {
-      background: $accent-6;
-    }
   }
 }
 .header {
@@ -240,10 +242,6 @@ body {
   .add-button {
     flex: 0 0 0;
     color: white;
-    background-color: $accent-1;
-    &:hover {
-      background: $accent-2;
-    }
   }
 
   .button-reload {
@@ -339,12 +337,6 @@ body {
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
-
-  .add-sub-btn {
-    color: white;
-    background-color: $accent-1;
-    margin-left: 1rem;
-  }
 }
 
 .sub-task {
@@ -355,12 +347,48 @@ body {
 }
 
 .task-complete {
-  .edit-task,
-  .button-remove {
-    background: var(--task-complete);
-    transition: background-color 0.6s linear;
+  .button-1:not(.checkbox-done):not(:hover):not(:focus):not(:active) {
+    background-color: var(--task-complete);
+    transition: background-color 0.6s;
+  }
+  .edit-task:hover,
+  .edit-task:focus {
+    filter: brightness(1.1);
+    background-color: var(--task-complete);
+  }
+  .edit-task:active {
+    filter: brightness(0.5);
+  }
+
+  .checkbox-done:hover,
+  .checkbox-done:focus {
+    filter: brightness(1.2);
+  }
+  .checkbox-done:active {
+    filter: brightness(1.2);
+    filter: brightness(0.8);
   }
 }
+
+.button-remove {
+  padding: 0.5rem;
+  font-size: 0;
+  &:hover {
+    transition: background-color 0.3s;
+    background-color: $accent-danger;
+  }
+  &:focus {
+    background-color: rgb(255, 87, 82);
+  }
+  &:active {
+    // filter: brightness(0.5);
+  }
+}
+.edit-task {
+  padding: 0.5rem;
+  font-size: 0;
+}
+
 .elevated {
   box-shadow: $shadow-z18;
 }
@@ -402,18 +430,6 @@ body {
     border: 0;
     color: $accent-3;
     background-color: rgba(255, 255, 255, 0.8);
-  }
-  .button {
-    text-align: center;
-    padding: 0.5em;
-    background-color: lightgray;
-    color: $accent-3;
-    &:hover {
-      background-color: $accent-6;
-    }
-    &:active {
-      background-color: $accent-2;
-    }
   }
   .button-edit-save {
     grid-row-start: 2;
@@ -516,12 +532,6 @@ body {
       }
       .sub-tasks-container {
         margin-left: 1rem;
-      }
-      .edit-task {
-        padding: 0.6rem;
-      }
-      .button-remove {
-        padding: 0.6rem;
       }
     }
     .overlay {
