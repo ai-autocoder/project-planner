@@ -198,43 +198,6 @@ function updateUI() {
   addListeners();
 }
 
-function changeStyles(taskIndex = null) {
-  if (taskIndex == null)
-    tasks.forEach((_, taskIndex) => {
-      changeStyles(taskIndex);
-    });
-  else {
-    const div = document.getElementById(`task-list-child-${taskIndex}`);
-    const hasStyle = div.classList.contains("task-complete");
-    const checkBox = document.getElementById(`bd-${taskIndex}`);
-    if (tasks[taskIndex].complete) {
-      checkBox.checked = true;
-      if (!hasStyle) div.classList.add("task-complete");
-    } else if (!tasks[taskIndex].complete) {
-      checkBox.checked = false;
-      if (hasStyle) div.classList.remove("task-complete");
-    }
-
-    if (hasSubTasks(tasks[taskIndex])) {
-      tasks[taskIndex].subTasks.forEach((subTask, subIndex) => {
-        const divSub = document.getElementById(
-          `sub-task-${taskIndex}-${subIndex}`
-        );
-
-        const hasStyle = divSub.classList.contains("task-complete");
-        const checkBox = document.getElementById(`bd-${taskIndex}-${subIndex}`);
-
-        if (subTask.complete) {
-          checkBox.checked = true;
-          if (!hasStyle) divSub.classList.add("task-complete");
-        } else if (!subTask.complete) {
-          checkBox.checked = false;
-          if (hasStyle) divSub.classList.remove("task-complete");
-        }
-      });
-    }
-  }
-}
 function addListeners() {
   tasks.forEach((task, index) => {
     //  done main task
