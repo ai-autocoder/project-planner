@@ -24,7 +24,7 @@ const debounce = function (func, delay) {
   });
   // Recalc progress shadows only when width of the page changes
   let pageWidth = window.innerWidth;
-  visualViewport.addEventListener(
+  window.visualViewport.addEventListener(
     "resize",
     debounce(function () {
       if (pageWidth == window.innerWidth) return;
@@ -366,7 +366,7 @@ function getTimeHtml(index, subIndex = null) {
 
 function getTimeData(time) {
   let selected = ["", "", "", ""];
-  value = 0;
+  let value = 0;
   if (Number.isInteger(time / 60 / 24 / 7)) {
     selected[3] = "selected=selected";
     value = time / 60 / 24 / 7;
@@ -447,9 +447,11 @@ function setProgress() {
 }
 
 function updateTime(timeLeft) {
-  let dateNow = new Date();
-  let estimatedCompletion = new Date(dateNow.getTime() + timeLeft * 60 * 1000);
-  dateString = `${estimatedCompletion.toLocaleDateString(
+  const dateNow = new Date();
+  const estimatedCompletion = new Date(
+    dateNow.getTime() + timeLeft * 60 * 1000
+  );
+  const dateString = `${estimatedCompletion.toLocaleDateString(
     "en-GB"
   )} ${estimatedCompletion.toLocaleTimeString("en-GB", {
     hour: "2-digit",
@@ -636,7 +638,7 @@ function getWidth(element, index) {
   const expanded = tasks[index].expand;
   if (expanded) return element.offsetWidth;
   else {
-    parent = document.getElementById(`sub-tasks-container-${index}`);
+    const parent = document.getElementById(`sub-tasks-container-${index}`);
     parent.style.display = "block";
     let width = element.offsetWidth;
     parent.style.display = "none";
