@@ -180,6 +180,7 @@ body {
   &::after {
     content: var(--main-progress);
     font-size: 1.2em;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -197,6 +198,7 @@ body {
   margin: 0;
   font-weight: 500;
   color: $accent-6;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   li {
     padding: 0.3em;
   }
@@ -471,6 +473,7 @@ body {
     .copyright {
       font-size: 0.8em;
       opacity: 0.5;
+      text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     }
   }
   .footer-nav {
