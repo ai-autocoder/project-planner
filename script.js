@@ -32,6 +32,19 @@ const debounce = function (func, delay) {
       pageWidth = window.innerWidth;
     }, 100)
   );
+  // Project button listener
+  const projectButton = document.getElementById("project-button");
+  const bodyElement = document.querySelector("body");
+  const overlayBackground = document.getElementById("overlay-background");
+  projectButton.addEventListener("click", (e) => {
+    bodyElement.classList.add("no-scroll");
+    overlayBackground.classList.add("display-grid");
+  });
+  // Button close project overlay
+  const closeOverlayButton = document.getElementById("close-overlay");
+  closeOverlayButton.addEventListener("click", (e) =>
+    overlayBackground.classList.remove("display-grid")
+  );
 })();
 
 (function headerShadow() {

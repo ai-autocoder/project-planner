@@ -24,9 +24,39 @@
     />
   </head>
   <body>
+    <div id="overlay-background" class="overlay-background">
+      <div id="overlay-project" class="overlay-project">
+        <div class="rename-container">
+          <form action="">
+            <label for="Project-title"
+              >Rename project:
+              <input
+                type="text"
+                name="Project-title"
+                value="Project"
+                required
+                minlength="1"
+                maxlength="15"
+                size="15"
+            /></label>
+            <button class="button">Save</button>
+          </form>
+        </div>
+        <button class="button button-1">Local Backup</button>
+        <button class="button button-1">Import</button>
+        <button class="button button-2">Export</button>
+        <button class="button" id="close-overlay">Close</button>
+      </div>
+    </div>
     <!-- nav -->
     <nav class="nav">
-      <div class="button project-button button-2" role="button">Project</div>
+      <div
+        id="project-button"
+        class="button project-button button-2"
+        role="button"
+      >
+        Project
+      </div>
       <a href="#" class="button button-login button-1">Login</a>
     </nav>
 
